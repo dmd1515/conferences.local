@@ -1,0 +1,43 @@
+
+.navbar.navbar-light {
+    background-color: #AAA7AD !important;
+    border-radius: 15px;
+}
+.navbar-brand-container {
+    background-color: #FFE66D !important;
+    height: 50px;
+    width: auto; 
+    border-radius: 15px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 0 10px; 
+}
+
+.navbar-brand{
+    margin-right: 0px !important;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-nav {
+    background: #FFE66D; 
+    padding: var(--Spacing__2x1, 12px) var(--Spacing__3x1, 32px) !important;
+    flex-direction: row;
+    border-radius: var(--Radius__m, 12px);
+    margin:0;
+}
+.btn:hover {
+    background-color: #6a11cb; /* Purple background when hovered */
+}
+.btn.dropdown-toggle:hover {
+    background-color: #6a11cb; /* Ensures button remains purple */
+    color: #fff; /* White text on hover */
+}
+.nav-link{
+    color: linear-gradient(90deg, #6a11cb, #2575fc);
+    text-decoration: none;
+}

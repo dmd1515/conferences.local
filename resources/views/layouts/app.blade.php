@@ -12,71 +12,61 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" ></script>
 
-    <!-- Custom Styling -->
-    <style>
-        body {
-            background: lightBlue;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar-nav {
-            background: #00FFFF; /* Optionally apply it to the navigation items as well */
-            padding: var(--Spacing__2x1, 24px) var(--Spacing__3x1, 32px);
-            flex-direction: row;
-            border-radius: var(--Radius__m, 12px);
-            margin:0;
-        }
-        .nav-link{
-            color: linear-gradient(90deg, #6a11cb, #2575fc);
-            text-decoration: none;
-        }
-
-    </style>
 </head>
 <body>
     <div id="app" >
-        <!-- Fixed Navbar -->
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <nav class="navbar navbar-expand-lg navbar-light ">
+    <div class="container">
+        <!-- Brand -->
+         <div class="navbar-brand-container">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            {{ __( 'NightStar') }}
+        </a>
+    </div>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        @guest
-                            @if (Route::has('login'))
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                
-                            @endif
-                            @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                               
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-            </div>
+        <!-- Collapsible Content -->
+        <div class="navbar" id="navbarSupportedContent">
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ms-auto">
+                @guest
+                    @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                    @endif
+                    @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                    @endif
+                @else
+                <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ Auth::user()->name }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                </ul>
+                </div>
+                @endguest
+            </ul>
+        </div>
+    </div>
+</nav>
 
         <main>
             @yield('content')
