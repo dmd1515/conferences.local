@@ -14,7 +14,7 @@ class ShopController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['index']);
     }
 
     /**
@@ -23,24 +23,21 @@ class ShopController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request)
-{
-    $sortOption = $request->input('sort', 'recommend'); // Default to 'recommend'
-
-    switch ($sortOption) {
-        case 'price-low-high':
-            $products = Product::orderBy('price', 'asc')->get();
-            break;
-        case 'price-high-low':
-            $products = Product::orderBy('price', 'desc')->get();
-            break;
-        default:
-            // Default sorting logic (e.g., by 'created_at' or some other field)
-            $products = Product::orderBy('created_at', 'desc')->get();
-            break;
+    {
+        $sortOption = $request->input('sort', 'recommend'); // Default to 'recommend'
+        switch ($sortOption) {
+            case 'price-low-high':
+                $products = Product::orderBy('price', 'asc')->get();
+                break;
+            case 'price-high-low':
+                $products = Product::orderBy('price', 'desc')->get();
+                break;
+            default:
+                $products = Product::orderBy('created_at', 'desc')->get();
+                break;
+        }
+        return view('e-shop.shop', compact('products'));
     }
-
-    return view('e-shop.shop', compact('products'));
-}
 
     /**
      * Show the product creation page.
@@ -83,7 +80,7 @@ class ShopController extends Controller
         Product::create([
             'product_number' => $request->product_number,
             'name' => $request->name,
-            'price' => $request->price, 
+            'price' => $request->price,
             'sale_price' => $request->sale_price,
             'image' => $imagePath,
             'sizes' => $request->sizes, // Array of sizes and stock
@@ -92,4 +89,5 @@ class ShopController extends Controller
         // Redirect back with a success message
         return redirect()->route('shop.index')->with('success', 'Product added successfully.');
     }
+
 }
