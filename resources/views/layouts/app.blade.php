@@ -45,7 +45,7 @@
         $(document).on('click', '.remove-from-cart', function () {
             var itemId = $(this).data('item-id');
             $.ajax({
-                url: '/cart/' + itemId,  // Ensure this is the correct route for destroying the cart item
+                url: '/cart/' + itemId,
                 method: 'DELETE',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -130,7 +130,7 @@
                                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                    document.getElementById('logout-form').submit();">
+                                                                                                                        document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

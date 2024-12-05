@@ -71,7 +71,7 @@
 
             <h4>Amount to Pay: ${{ number_format($discountedTotal, 2) }}</h4>
 
-            <!-- Pay Button (redirects to success page) -->
+            <!-- Pay Button -->
             <form action="{{ route('payment.success') }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-primary mt-2">Complete Payment</button>

@@ -42,35 +42,27 @@ class ShopController extends Controller
     }
     public function paymentSuccess()
     {
-        // Get the current user ID
         $userId = Auth::id();
 
-        // Get the user's cart items
         $cartItems = Cart::with('product')->where('user_id', $userId)->get();
 
         // Iterate through the cart items and update the product sizes
         foreach ($cartItems as $item) {
             $product = $item->product;
-            $size = $item->size; // Assuming 'size' is one of 's', 'm', or 'l'
+            $size = $item->size;
             $quantityPurchased = $item->quantity;
 
             // Check if the product sizes attribute is an array or JSON
             if (is_array($product->sizes) || is_object($product->sizes)) {
-                // Get the current sizes array
                 $sizes = $product->sizes;
 
-                // Check if the specific size exists in the sizes array
                 if (isset($sizes[$size])) {
-                    // Reduce the quantity for the purchased size
                     $sizes[$size] -= $quantityPurchased;
 
-                    // Ensure that the size quantity doesn't go below zero
                     $sizes[$size] = max($sizes[$size], 0);
 
-                    // Update the sizes attribute on the model
                     $product->sizes = $sizes;
 
-                    // Save the updated product back to the database
                     $product->save();
                 }
             }
@@ -80,9 +72,8 @@ class ShopController extends Controller
         Cart::where('user_id', $userId)->delete();
 
         // Remove the promo code from the session
-        session()->forget('promo_discount'); // Remove the promo code session value
+        session()->forget('promo_discount');
 
-        // Redirect with a success message
         return redirect()->route('shop.index')->with('success', 'Payment successful! Your cart has been cleared, and the promo code has been removed.');
     }
 
@@ -115,9 +106,9 @@ class ShopController extends Controller
             'sale_price' => 'nullable|numeric',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'sizes' => 'required|array',
-            'sizes.s' => 'required|numeric|min:0',  // Validate 'S' size
-            'sizes.m' => 'required|numeric|min:0',  // Validate 'M' size
-            'sizes.l' => 'required|numeric|min:0',  // Validate 'L' size
+            'sizes.s' => 'required|numeric|min:0',
+            'sizes.m' => 'required|numeric|min:0',
+            'sizes.l' => 'required|numeric|min:0',
         ]);
 
         // Handle image upload
@@ -133,10 +124,9 @@ class ShopController extends Controller
             'price' => $request->price,
             'sale_price' => $request->sale_price,
             'image' => $imagePath,
-            'sizes' => $request->sizes, // Array of sizes and stock
+            'sizes' => $request->sizes,
         ]);
 
-        // Redirect back with a success message
         return redirect()->route('shop.index')->with('success', 'Product added successfully.');
     }
 

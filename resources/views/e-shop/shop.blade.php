@@ -22,11 +22,10 @@
 
     <!-- Product Grid -->
     <div class="row">
-        @foreach($products as $product) <!-- Loop through the products -->
-            <div class="col-md-4 mb-4"> <!-- 3 Columns per row -->
+        @foreach($products as $product) 
+            <div class="col-md-4 mb-4">
                 <div class="card product-card shadow-sm">
                     <div class="position-relative">
-                        <!-- Check if product has an image -->
                         <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="Product Image">
                         @if($product->sale_price)
                             <span class="badge badge-danger position-absolute top-0 left-0 m-2">
@@ -37,10 +36,9 @@
                     <div class="card-body text-center">
                         <h6 class="card-title font-weight-bold">{{ $product->name }}</h6>
                         <p class="text-muted small">
-                            <!-- Display available sizes with stock -->
                             {{ __('Available Sizes: ') }}
                             @foreach($product->sizes as $size => $stock)
-                                @if($stock > 0) <!-- Only show sizes with stock -->
+                                @if($stock > 0)
                                     {{($size) }}: {{ $stock }} &nbsp;
                                 @endif
                             @endforeach
