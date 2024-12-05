@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cart;
 use App\Models\Product;
+use Auth;
 
 class ShopController extends Controller
 {
@@ -38,6 +40,54 @@ class ShopController extends Controller
         }
         return view('e-shop.shop', compact('products'));
     }
+    public function paymentSuccess()
+    {
+        // Get the current user ID
+        $userId = Auth::id();
+
+        // Get the user's cart items
+        $cartItems = Cart::with('product')->where('user_id', $userId)->get();
+
+        // Iterate through the cart items and update the product sizes
+        foreach ($cartItems as $item) {
+            $product = $item->product;
+            $size = $item->size; // Assuming 'size' is one of 's', 'm', or 'l'
+            $quantityPurchased = $item->quantity;
+
+            // Check if the product sizes attribute is an array or JSON
+            if (is_array($product->sizes) || is_object($product->sizes)) {
+                // Get the current sizes array
+                $sizes = $product->sizes;
+
+                // Check if the specific size exists in the sizes array
+                if (isset($sizes[$size])) {
+                    // Reduce the quantity for the purchased size
+                    $sizes[$size] -= $quantityPurchased;
+
+                    // Ensure that the size quantity doesn't go below zero
+                    $sizes[$size] = max($sizes[$size], 0);
+
+                    // Update the sizes attribute on the model
+                    $product->sizes = $sizes;
+
+                    // Save the updated product back to the database
+                    $product->save();
+                }
+            }
+        }
+
+        // Delete cart items after successful payment
+        Cart::where('user_id', $userId)->delete();
+
+        // Remove the promo code from the session
+        session()->forget('promo_discount'); // Remove the promo code session value
+
+        // Redirect with a success message
+        return redirect()->route('shop.index')->with('success', 'Payment successful! Your cart has been cleared, and the promo code has been removed.');
+    }
+
+
+
 
     /**
      * Show the product creation page.

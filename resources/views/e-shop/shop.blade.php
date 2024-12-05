@@ -94,39 +94,5 @@
 
 @endsection
 @section('scripts')
-<!-- Your JavaScript -->
-<script>
-    console.log('DOMContentLoaded fired!');
-    document.addEventListener('DOMContentLoaded', function () {
-        console.log('DOMContentLoaded fired!');
-        const sizeModal = document.getElementById('sizeModal');
-        sizeModal.addEventListener('show.bs.modal', function (event) {
-            console.log('Modal is about to be shown');
-            const button = event.relatedTarget; // Button that triggered the modal
-            const productId = button.getAttribute('data-product-id');
-            const productName = button.getAttribute('data-product-name');
-            console.log('Product ID:', productId);
-            console.log('Product Name:', productName);
-            const productSizes = JSON.parse(button.getAttribute('data-product-sizes'));
-
-            console.log('Product Sizes:', productSizes);
-            // Populate modal fields
-            document.getElementById('productId').value = productId;
-            document.getElementById('productName').textContent = productName;
-
-            const sizeSelect = document.getElementById('sizeSelect');
-            sizeSelect.innerHTML = ''; // Clear existing options
-
-            // Populate size dropdown with available sizes
-            Object.keys(productSizes).forEach(size => {
-                if (productSizes[size] > 0) {
-                    const option = document.createElement('option');
-                    option.value = size;
-                    option.textContent = `${size.toUpperCase()} (${productSizes[size]} in stock)`;
-                    sizeSelect.appendChild(option);
-                }
-            });
-        });
-    });
-</script>
+<script src="{{ asset('js/shop.js') }}"></script>
 @endsection

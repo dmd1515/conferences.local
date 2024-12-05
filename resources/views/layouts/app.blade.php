@@ -22,6 +22,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
     <script>
         // Adding an item to the cart (AJAX request)
         $(document).on('click', '.add-to-cart', function () {
@@ -60,12 +61,22 @@
         });
     </script>
 
-
-
 </head>
 
-<body>
+<body class="@yield('body-class')">
     <div id="app">
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @elseif(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <!-- Brand -->
@@ -80,6 +91,10 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto align-items-center">
                         @guest
+                            <a href="{{ route('cart.index') }}" class="btn btn-outline-secondary me-3">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="badge bg-danger" id="cartCount">{{ $cartCount }}</span>
+                            </a>
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -115,7 +130,7 @@
                                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                    document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

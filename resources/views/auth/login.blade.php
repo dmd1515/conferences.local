@@ -1,7 +1,7 @@
 @extends('layouts.app')
-
+@section('body-class', 'login-page')
 @section('content')
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<div class="container1 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="login-card">
         <h2 class="text-center mb-4">{{ __('en_labels.login') }}</h2>
 
@@ -53,73 +53,11 @@
     </div>
 </div>
 
-<!-- Custom CSS specific to the login page -->
+
 <style>
     body {
         background: linear-gradient(135deg, #6a11cb, #2575fc);
         font-family: Arial, sans-serif;
-    }
-
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-    }
-
-    .login-card {
-        background: #fff;
-        border-radius: 12px;
-        padding: 2rem;
-        max-width: 400px;
-        width: 100%;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .login-card h2 {
-        font-size: 1.5rem;
-        color: #333;
-    }
-
-    .form-label {
-        font-weight: bold;
-        color: #555;
-    }
-
-    .form-control {
-        border: 1px solid #ddd;
-        padding: 0.75rem;
-        border-radius: 8px;
-    }
-
-    .form-control:focus {
-        border-color: #6a11cb;
-        box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.25);
-    }
-
-    .btn-gradient {
-        background: linear-gradient(90deg, #6a11cb, #2575fc);
-        color: #fff;
-        border: none;
-        padding: 0.75rem;
-        font-size: 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.3s ease;
-    }
-
-    .btn-gradient:hover {
-        background: linear-gradient(90deg, #5c0daf, #1f63d1);
-    }
-
-    .small-link {
-        color: #6a11cb;
-        text-decoration: none;
-        font-size: 0.9rem;
-    }
-
-    .small-link:hover {
-        text-decoration: underline;
     }
 </style>
 @endsection
