@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -6,9 +7,9 @@ use App\Models\Cart;
 use App\Models\Product;
 use Auth;
 use App\Models\PromoCode;
+
 class CartController extends Controller
 {
-
     public function index()
     {
         $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
@@ -23,9 +24,20 @@ class CartController extends Controller
 
         $discountedTotal = $cartTotal * ((100 - $promoDiscount) / 100);
 
-        return view('e-shop.cart', compact('cartItems', 'cartCount', 'cartTotal', 'discountedTotal', 'promoDiscount'));
-    }
+        // Fetch recommended products
+        $recommendedProducts = Product::whereNotIn('id', $cartItems->pluck('product_id')) // Exclude products already in the cart
+            ->limit(3) // Adjust limit as needed
+            ->get();
 
+        return view('e-shop.cart', compact(
+            'cartItems',
+            'cartCount',
+            'cartTotal',
+            'discountedTotal',
+            'promoDiscount',
+            'recommendedProducts'
+        ));
+    }
 
     public function store(Request $request)
     {
@@ -60,8 +72,6 @@ class CartController extends Controller
 
         return redirect()->route('cart.index');
     }
-
-
 
     public function destroy($cartItemId)
     {
@@ -98,7 +108,26 @@ class CartController extends Controller
         session()->forget('promo_discount');
         return back()->with('success', 'Promo code removed successfully!');
     }
+    public function update(Request $request, $cartItemId)
+    {
+        $cartItem = Cart::with('product')->find($cartItemId);
 
+        if ($cartItem && $cartItem->user_id === Auth::id()) {
+            $product = $cartItem->product;
+            $sizeStock = $product->sizes[$cartItem->size] ?? 0; // Get the stock for the specific size
 
+            if ($request->action === 'increase') {
+                if ($cartItem->quantity < $sizeStock) {
+                    $cartItem->increment('quantity');
+                } else {
+                    return redirect()->route('cart.index')->with('error', 'Cannot exceed available stock for this size.');
+                }
+            } elseif ($request->action === 'decrease' && $cartItem->quantity > 1) {
+                $cartItem->decrement('quantity');
+            }
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Cart updated successfully!');
+    }
 
 }

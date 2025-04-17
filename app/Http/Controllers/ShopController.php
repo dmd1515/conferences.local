@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
 use Auth;
+use Storage;
 
 class ShopController extends Controller
 {
@@ -39,6 +40,56 @@ class ShopController extends Controller
                 break;
         }
         return view('e-shop.shop', compact('products'));
+    }
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('e-shop.create_product', compact('product'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $request->validate([
+            'product_number' => 'required|unique:products,product_number,' . $id,
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'sale_price' => 'nullable|numeric',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'sizes' => 'required|array',
+            'sizes.s' => 'required|numeric|min:0',
+            'sizes.m' => 'required|numeric|min:0',
+            'sizes.l' => 'required|numeric|min:0',
+        ]);
+
+        $data = $request->only(['product_number', 'name', 'price', 'sale_price', 'sizes']);
+
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+
+            $data['image'] = $request->file('image')->store('products', 'public');
+        }
+
+        $product->update($data);
+
+        return redirect()->route('shop.index')->with('success', 'Product updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+
+        $product->delete();
+
+        return redirect()->route('shop.index')->with('success', 'Product deleted successfully.');
     }
     public function paymentSuccess()
     {

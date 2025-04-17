@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware; // Must be exactly this
 
 use Closure;
 use Illuminate\Http\Request;
@@ -13,8 +13,6 @@ class AdminMiddleware
         if (Auth::check() && Auth::user()->isAdmin()) {
             return $next($request);
         }
-
-        // Redirect to the homepage if not an admin
-        return redirect('/');  // Or any other page you want to redirect non-admins to
+        return redirect('/'); // Redirect non-admins
     }
 }
