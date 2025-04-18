@@ -81,7 +81,7 @@
             <div class="container">
                 <!-- Brand -->
                 <div class="navbar-brand-container">
-                    <a class="navbar-brand" href="{{ url('/shop') }}">
+                    <a class="navbar-brand" href="{{ url('/') }}">
                         {{ __('NightStar') }}
                     </a>
                 </div>
@@ -130,7 +130,7 @@
                                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                        document.getElementById('logout-form').submit();">
+                                                                                                                            document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

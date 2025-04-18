@@ -51,12 +51,13 @@
                                 @endif
                             </div>
                             <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap mt-3">
-                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#sizeModal"
-                                    data-product-id="{{ $product->id }}" data-product-name="{{ $product->name }}"
-                                    data-product-sizes="{{ json_encode($product->sizes) }}">
-                                    Add to Cart
-                                </button>
-
+                                @if(Auth::check() && !Auth::user()->admin || !Auth::check())
+                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#sizeModal"
+                                        data-product-id="{{ $product->id }}" data-product-name="{{ $product->name }}"
+                                        data-product-sizes="{{ json_encode($product->sizes) }}">
+                                        Add to Cart
+                                    </button>
+                                @endif
                                 @if(Auth::check() && Auth::user()->admin)
                                     <a href="{{ route('product.edit', ['id' => $product->id]) }}" class="btn btn-sm btn-warning">
                                         Edit
