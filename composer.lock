@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37e7f6d63a0771265bd3354f0c24cfc9",
+    "content-hash": "514035ad6f28155babf8ef75c3cd1e90",
     "packages": [
         {
             "name": "brick/math",
@@ -6357,6 +6357,76 @@
             "time": "2022-02-21T01:04:05+00:00"
         },
         {
+            "name": "phpmetrics/phpmetrics",
+            "version": "v2.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpmetrics/PhpMetrics.git",
+                "reference": "e2e68ddd1543bc3f44402c383f7bccb62de1ece3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpmetrics/PhpMetrics/zipball/e2e68ddd1543bc3f44402c383f7bccb62de1ece3",
+                "reference": "e2e68ddd1543bc3f44402c383f7bccb62de1ece3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-tokenizer": "*",
+                "nikic/php-parser": "^3|^4|^5"
+            },
+            "replace": {
+                "halleck45/php-metrics": "*",
+                "halleck45/phpmetrics": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "bin": [
+                "bin/phpmetrics"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "./src/functions.php"
+                ],
+                "psr-0": {
+                    "Hal\\": "./src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-François Lépine",
+                    "email": "lepinejeanfrancois@yahoo.fr",
+                    "homepage": "http://www.lepine.pro",
+                    "role": "Copyright Holder"
+                }
+            ],
+            "description": "Static analyzer tool for PHP : Coupling, Cyclomatic complexity, Maintainability Index, Halstead's metrics... and more !",
+            "homepage": "http://www.phpmetrics.org",
+            "keywords": [
+                "analysis",
+                "qa",
+                "quality",
+                "testing"
+            ],
+            "support": {
+                "issues": "https://github.com/PhpMetrics/PhpMetrics/issues",
+                "source": "https://github.com/phpmetrics/PhpMetrics/tree/v2.9.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Halleck45",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-09-25T05:21:02+00:00"
+        },
+        {
             "name": "phpunit/php-code-coverage",
             "version": "11.0.7",
             "source": {
@@ -7701,6 +7771,85 @@
                 }
             ],
             "time": "2024-10-09T05:16:32+00:00"
+        },
+        {
+            "name": "squizlabs/php_codesniffer",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
+                "reference": "06113cfdaf117fc2165f9cd040bd0f17fcd5242d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/06113cfdaf117fc2165f9cd040bd0f17fcd5242d",
+                "reference": "06113cfdaf117fc2165f9cd040bd0f17fcd5242d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=7.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.4.0 || ^9.3.4 || ^10.5.32 || 11.3.3 - 11.5.28 || ^11.5.31"
+            },
+            "bin": [
+                "bin/phpcbf",
+                "bin/phpcs"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "Former lead"
+                },
+                {
+                    "name": "Juliette Reinders Folmer",
+                    "role": "Current lead"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer/graphs/contributors"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP files and detects violations of a defined set of coding standards.",
+            "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
+            "keywords": [
+                "phpcs",
+                "standards",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/PHPCSStandards/PHP_CodeSniffer/issues",
+                "security": "https://github.com/PHPCSStandards/PHP_CodeSniffer/security/policy",
+                "source": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
+                "wiki": "https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/PHPCSStandards",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/jrfnl",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/php_codesniffer",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://thanks.dev/u/gh/phpcsstandards",
+                    "type": "thanks_dev"
+                }
+            ],
+            "time": "2025-09-15T11:28:58+00:00"
         },
         {
             "name": "symfony/yaml",
